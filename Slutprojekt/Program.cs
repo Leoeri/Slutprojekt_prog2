@@ -1,15 +1,15 @@
 ﻿using System;
 using Raylib_cs;
 
-
-
+int xCoord = 3;
+int yCoord = 7;
 
 Raylib.InitWindow(1000, 1000, "Hello World");
 
 while (!Raylib.WindowShouldClose())
 {
     Raylib.BeginDrawing();
-    Raylib.ClearBackground(Color.WHITE);
+    Raylib.ClearBackground(Color.BROWN);
 
     spelplan();
     Raylib.EndDrawing();
@@ -21,17 +21,23 @@ while (!Raylib.WindowShouldClose())
 }
 
 
-static void spelplan()
+void spelplan()
 {
-
-    for (int x = 0; x <= 9; x++)
+    for (int y = 0; y <= 9; y++)
     {
-        for (int y = 0; y <= 9; y++)
+        for (int x = 0; x <= 9; x++)
         {
-            Raylib.DrawRectangle(y * 100 - 1, x * 100 - 1, 99, 99, Color.BLACK);
+            Raylib.DrawRectangle(x * 100 - 1, y * 100 - 1, 99, 99, Color.GREEN);
+            if (x == xCoord && y == yCoord)
+            {
+                Console.Write("[X]");
+            }
+            else
+            {
+                Console.Write("[ ]");
+            }
 
         }
-
+        Console.WriteLine();
     }
-
 }
