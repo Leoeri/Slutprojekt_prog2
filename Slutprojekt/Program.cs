@@ -1,40 +1,52 @@
 ﻿using System;
 using Raylib_cs;
 
-int xCoord = 3;
-int yCoord = 7;
+int[,] taken = new int[5, 3];
+taken[1, 1] = 3;
+taken[3, 1] = 3;
+PlayerCharacter player = new PlayerCharacter();
+AICharacter ai = new AICharacter();
 
-Raylib.InitWindow(1000, 1000, "Hello World");
+Raylib.InitWindow(500, 300, "Hello World");
 
 while (!Raylib.WindowShouldClose())
 {
     Raylib.BeginDrawing();
     Raylib.ClearBackground(Color.BROWN);
-
     spelplan();
+    if (ai.playerTurn)
+    {
+        player.movement();
+    }
+    if (player.aiTurn)
+    {
+        ai.movement();
+    }
+
     Raylib.EndDrawing();
-    //  Console.WriteLine("Hello World!");
-
-    // Console.ReadLine();
-
 
 }
 
 
 void spelplan()
 {
-    for (int y = 0; y <= 9; y++)
+    for (int y = 0; y <= 2; y++)
     {
-        for (int x = 0; x <= 9; x++)
+        for (int x = 0; x <= 4; x++)
         {
             Raylib.DrawRectangle(x * 100 - 1, y * 100 - 1, 99, 99, Color.GREEN);
-            if (x == xCoord && y == yCoord)
+            if (taken[x, y] == 3)
             {
                 Console.Write("[X]");
+                Raylib.DrawRectangle(x * 100 - 1, y * 100 - 1, 99, 99, Color.BLUE);
             }
-            else
+            else if (player.position[x, y] == 1)
             {
-                Console.Write("[ ]");
+                Raylib.DrawRectangle(x * 100 - 1, y * 100 - 1, 99, 99, Color.GRAY);
+            }
+            else if (ai.position[x, y] == 2)
+            {
+                Raylib.DrawRectangle(x * 100 - 1, y * 100, 99, 99, Color.WHITE);
             }
 
         }
